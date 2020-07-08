@@ -6,11 +6,13 @@ const userRoutes = require('./routes/user')
 const favouriteRoutes = require('./routes/favourite')
 const checkoutRoutes = require('./routes/checkout')
 const db = require('./models')
-const { urlencoded } = require('express')
+
+require('./config/passport/passport')
+
 
 app.use(cors())
 app.use(express.json())
-app.use(urlencoded({extended:false}))
+app.use(express.urlencoded({ extended: false }));
 
 app.use('/users',userRoutes)
 app.use('/favourites',favouriteRoutes)
