@@ -21,10 +21,7 @@ function Login() {
         
         
     };
-    const logOut = values => {
-        LocalStorageService.removeToken()
-        notification.info({message:'You are now logged out'})
-    }
+    
 
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
@@ -32,7 +29,6 @@ function Login() {
 
     return (
         <div >
-
             <Form className="outerLogin"
                 {...layout}
                 name="basic"
@@ -66,7 +62,6 @@ function Login() {
                     <Button type="primary" htmlType="submit">
                         Submit
         </Button>
-        <Button type="primary" onClick={logOut}>Logout</Button>
                 </Form.Item>
             </Form>
         </div>

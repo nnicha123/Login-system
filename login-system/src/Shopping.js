@@ -27,7 +27,7 @@ import bag4 from './bags/doctor-maroon.jpg'
 import bag5 from './bags/doctor-navy.jpg'
 import bag6 from './bags/doctor-black.jpg'
 import 'antd/dist/antd.css'
-import { Layout, Menu, Row, Col } from 'antd';
+import { Layout, Menu, Row, Col,Button } from 'antd';
 import Register from './Register'
 import Login from './Login'
 import LocalStorageService from './services/localStorageService'
@@ -233,12 +233,14 @@ class Shopping extends Component {
                                 <p>You have no checkout items. Checkout our new promotions!</p>
                             </div>}
                             
-                            {this.state.favourite.length > 0 && <Favourites favourite={this.state.favourite} deleteFav={this.deleteFav} />}
+                            {/* {this.state.favourite.length > 0 && <Favourites favourite={this.state.favourite} deleteFav={this.deleteFav} />}
                             {this.state.favourite.length <= 0 && <div style={{ marginLeft: '15px', marginTop: '10px' }}>
                                 <h2>Favourites</h2>
                                 <p>You have no favourite item yet!</p>
-                            </div>}
+                            </div>} */}
+                            
                         </Col>
+                        
                     </Row>
                 </Content>}
                 {this.state.components[3] && <Login/>}
