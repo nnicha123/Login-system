@@ -27,11 +27,12 @@ import bag4 from './bags/doctor-maroon.jpg'
 import bag5 from './bags/doctor-navy.jpg'
 import bag6 from './bags/doctor-black.jpg'
 import 'antd/dist/antd.css'
-import { Layout, Menu, Row, Col,Button } from 'antd';
+import { Layout, Menu, Row, Col, Button, notification } from 'antd';
 import Register from './Register'
 import Login from './Login'
 import LocalStorageService from './services/localStorageService'
 const { Header, Content, Footer } = Layout;
+
 
 
 class Shopping extends Component {
@@ -64,7 +65,7 @@ class Shopping extends Component {
 
         checkOut: [],
         favourite: [],
-        components: [true, true, true,false,false],
+        components: [true, true, true, false, false],
         total: 0,
         title: [],
         titleFav: []
@@ -78,15 +79,13 @@ class Shopping extends Component {
             this.setState({ checkOut: res.data, title: newTitles })
             for (let i = 0; i < res.data.length; i++) dataCal += res.data[i].price * res.data[i].quantity
             this.setState({ total: dataCal })
-            
-        })
+
+        }).catch(err => notification.info({ message: 'You are currently logged out' }))
         axios.get('http://localhost:8000/favourites').then(res => {
             // let newFavTitles = res.data.map(el => el.title)
             console.log(res.data)
             this.setState({ favourite: res.data })
         })
-        
-
     }
 
     updateCheckout = (ind, id) => {
@@ -98,7 +97,7 @@ class Shopping extends Component {
             this.setState({ title: [...this.state.title, newItem.title] })
             axios.post('http://localhost:8000/checkouts', newItem).then(() => {
                 axios.get('http://localhost:8000/checkouts').then(res => this.setState({ checkOut: res.data, total: this.state.total + newPrice }))
-            })
+            }).catch(err => notification.error({message:'Please login to add items'}))
         }
     }
     updateFav = (ind) => {
@@ -110,7 +109,7 @@ class Shopping extends Component {
                     // let newTitles = res.data.map(el => el.title)
                     this.setState({ favourite: res.data })
                 })
-            })
+            }).catch(err => notification.error({message:'Please login to add items'}))
         }
 
     }
@@ -124,7 +123,7 @@ class Shopping extends Component {
             this.setState({ title: [...this.state.title, newItem.title] })
             axios.post('http://localhost:8000/checkouts', newItem).then(() => {
                 axios.get('http://localhost:8000/checkouts').then(res => this.setState({ checkOut: res.data, total: this.state.total + newPrice }))
-            })
+            }).catch(err => notification.error({message:'Please login to add items'}))
         }
     }
     updateFavGames = (ind) => {
@@ -134,7 +133,7 @@ class Shopping extends Component {
             this.setState({ titleFav: [...this.state.titleFav, newItem.title] })
             axios.post('http://localhost:8000/favourites', newItem).then(() => {
                 axios.get('http://localhost:8000/favourites').then(res => this.setState({ favourite: res.data }))
-            })
+            }).catch(err => notification.error({message:'Please login to add items'}))
         }
     }
     updateCheckoutBags = (ind) => {
@@ -146,7 +145,7 @@ class Shopping extends Component {
             this.setState({ title: [...this.state.title, newItem.title] })
             axios.post('http://localhost:8000/checkouts', newItem).then(() => {
                 axios.get('http://localhost:8000/checkouts').then(res => this.setState({ checkOut: res.data, total: this.state.total + newPrice }))
-            })
+            }).catch(err => notification.error({message:'Please login to add items'}))
         }
 
     }
@@ -156,7 +155,7 @@ class Shopping extends Component {
             this.setState({ titleFav: [...this.state.titleFav, newItem.title] })
             axios.post('http://localhost:8000/favourites', newItem).then(() => {
                 axios.get('http://localhost:8000/favourites').then(res => this.setState({ favourite: res.data }))
-            })
+            }).catch(err => notification.error({message:'Please login to add items'}))
         }
     }
     deleteItem = (id) => {
@@ -232,19 +231,19 @@ class Shopping extends Component {
                                 <h2>CheckOut</h2>
                                 <p>You have no checkout items. Checkout our new promotions!</p>
                             </div>}
-                            
+
                             {/* {this.state.favourite.length > 0 && <Favourites favourite={this.state.favourite} deleteFav={this.deleteFav} />}
                             {this.state.favourite.length <= 0 && <div style={{ marginLeft: '15px', marginTop: '10px' }}>
                                 <h2>Favourites</h2>
                                 <p>You have no favourite item yet!</p>
                             </div>} */}
-                            
+
                         </Col>
-                        
+
                     </Row>
                 </Content>}
-                {this.state.components[3] && <Login/>}
-                {this.state.components[4] && <Register/>}
+                {this.state.components[3] && <Login />}
+                {this.state.components[4] && <Register />}
                 <Footer style={{ textAlign: 'center', background: '#001529', color: 'white', padding: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Shopping Project ©2020 Created by Nicha N.</Footer>
             </div>
         )
